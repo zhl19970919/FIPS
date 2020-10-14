@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pren.zhl.tool.mapper.AccountMapper">
+    <select id="findByOpencode" resultType="pren.zhl.tool.dto.AccountDTO">
+        SELECT
+            a.id AS id,
+            a.category AS category,
+            a.creator AS creator,
+            u.created AS created,
+            u.deleted AS deleted,
+            u.edited AS edited,
+            u.editor AS editor,
+            a.open_code AS openCode,
+            a.user_id AS userId,
+            u.head_img_url AS headImgUrl,
+            u.mobile AS mobile,
+            u.`name` AS `name`,
+            u.`password` AS `password`,
+            u.state AS state,
+            u.salt AS salt
+        FROM
+            `tool_account` AS a
+            LEFT JOIN `tool_user` AS u ON a.user_id = u.id
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            AND a.deleted = 0
+            <if test="userDeleted != null and userDeleted.length() > 0"> AND u.deleted = #{userDeleted} </if>
+            <if test="openCode != null and openCode.length() > 0"> AND a.open_code = #{openCode} </if>
+            <if test="userId != null and userId.length() > 0"> AND a.user_id = #{userId} </if>
+        </trim>
+    </select>
+    <select id="getAccountList" resultType="pren.zhl.tool.dto.AccountDTO">
+        SELECT
+            u.id AS userId,
+            `name` AS `name`,
+            head_img_url AS headImgUrl,
+            mobile AS mobile,
+            `password` AS `password`,
+/*            u.created AS created,
+            u.creator AS creator,
+            u.edited AS edited,
+            u.editor AS editor,
+            u.deleted AS deleted,*/
+            a.open_code AS openCode,
+            a.category AS category,
+            GROUP_CONCAT( open_code SEPARATOR '||' ) AS usernames,
+            GROUP_CONCAT( a.id SEPARATOR '||' ) AS ids
+        FROM
+            tool_account a
+            LEFT JOIN tool_user u ON u.id = a.user_id
+        WHERE
+            u.deleted = 0
+        GROUP BY
+            a.user_id
+    </select>
+</mapper>
