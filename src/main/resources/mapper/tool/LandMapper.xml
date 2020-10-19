@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pren.zhl.tool.mapper.LandMapper">
 
+    <select id="getLandDTOList" resultType="pren.zhl.tool.dto.LandDTO">
+        SELECT
+            l.id,
+            l.land_name AS landName,
+            l.total,
+            l.surplus,
+            l.charge,
+            l.created,
+            l.creator,
+            l.edited,
+            l.editor,
+            l.deleted
+        FROM
+            tool_land l
+        WHERE
+            deleted = 0
+    </select>
 </mapper>
