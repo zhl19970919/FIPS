@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 import pren.zhl.tool.bean.Response;
-import pren.zhl.tool.dto.AccountDTO;
 import pren.zhl.tool.dto.LandDTO;
 import pren.zhl.tool.entity.Land;
 import pren.zhl.tool.service.ILandService;
@@ -86,8 +85,8 @@ public class LandController {
     @DeleteMapping("/batchDelete")
     public Response batcDelete(@ApiParam(name = "ids", value = "权限ids", required = true) @RequestBody List<Long> ids){
         if (iLandService.batchDelete(ids))
-            return response.success("");
-        return response.failure("");
+            return response.success("批量删除成功");
+        return response.failure("批量删除失败");
     }
 
 }

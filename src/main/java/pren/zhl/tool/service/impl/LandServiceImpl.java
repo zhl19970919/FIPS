@@ -50,7 +50,12 @@ public class LandServiceImpl extends ServiceImpl<LandMapper, Land> implements IL
             Land land = new Land();
             land.setDeleted(true);
             land.setId(ids.get(i));
-            baseMapper.updateById(land);
+            try{
+                baseMapper.updateById(land);
+            }catch (Exception e){
+                log.error("更新失败",e);
+                return false;
+            }
         }
         return true;
     }

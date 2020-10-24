@@ -34,10 +34,10 @@ public class Plant implements Serializable {
     private Long landCropsId;
 
     @ApiModelProperty(value = "X坐标")
-    private Integer x-axis;
+    private Integer xAxis;
 
     @ApiModelProperty(value = "Y坐标")
-    private Integer y-axis;
+    private Integer yAxis;
 
     @ApiModelProperty(value = "施肥次数")
     private Integer fertilizationTimes;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhl
  * @since 2020-10-16
  */
-
+@Api(value="种植controller",tags={"种植操作接口"})
 @RestController
 @RequestMapping("/tool/land-crops")
 public class LandCropsController {
